@@ -12,10 +12,6 @@
 #define usbasp_gpio_fsel(gpio, fsel)
 #define usbasp_gpio_write(gpio, level)
 
-uint8_t usbasp_spi_transfer(uint8_t value);
-void usbasp_spi_transfernb(char* tbuf, char* rbuf, uint32_t len);
-void usbasp_spi_transfern(char* buf, uint32_t len);
-
 void usbasp_set_debug(int n);
 
 int usbasp_init(void);
@@ -28,5 +24,11 @@ void usbasp_spi_setClockDivider(uint16_t divider);
 void usbasp_spi_chipSelect(uint8_t cs);
 void usbasp_spi_setChipSelectPolarity(uint8_t cs, uint8_t active);
 
+void usbasp_spi_nss(int nss);
+uint8_t usbasp_spi_send(uint8_t value);
+
+uint8_t usbasp_spi_transfer(uint8_t value);
+void usbasp_spi_transfernb(char* tbuf, char* rbuf, uint32_t len);
+void usbasp_spi_transfern(char* buf, uint32_t len);
 
 #endif // USBASP_SPI_H

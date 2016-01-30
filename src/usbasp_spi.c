@@ -173,6 +173,26 @@ void usbasp_spi_transfernn(uint32_t value)
 	}
 }
 
+void usbasp_spi_nss(int nss)
+{
+	if (!nss)
+		usbasp_req(g_dev, USBASP_FUNC_BEGIN_TRANSFER, 0);
+	else
+		usbasp_req(g_dev, USBASP_FUNC_END_TRANSFER, 0);
+}
+
+uint8_t usbasp_spi_send(uint8_t value)
+{
+	uint16_t wValue = value;
+	uint16_t wIndex = 0;
+
+	usbasp_req_data(g_dev, USBASP_FUNC_TRANSFER1,
+		    wValue, wIndex,
+		    (unsigned char *)&value, 1);
+
+	return value;
+}
+
 
 
 int usbasp_req_data(struct libusb_device_handle *dev,
@@ -195,7 +215,7 @@ int usbasp_req_data(struct libusb_device_handle *dev,
 					req, wValue, wIndex,
 					data, size,
 					5000 /* timeout */);
-	if (req != USBASP_FUNC_TRANSMIT2 && res != 0)
+	if (req < USBASP_FUNC_TRANSMIT2 && res != 0)
 	{
 		fprintf(stderr, "Error: req %d: %s\n", req, libusb_error_name(res));
 		return res;
