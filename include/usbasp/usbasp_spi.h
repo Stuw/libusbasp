@@ -12,6 +12,10 @@
 #define usbasp_gpio_fsel(gpio, fsel)
 #define usbasp_gpio_write(gpio, level)
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void usbasp_set_debug(int n);
 
 int usbasp_init(void);
@@ -30,5 +34,9 @@ uint8_t usbasp_spi_send(uint8_t value);
 uint8_t usbasp_spi_transfer(uint8_t value);
 void usbasp_spi_transfernb(char* tbuf, char* rbuf, uint32_t len);
 void usbasp_spi_transfern(char* buf, uint32_t len);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // USBASP_SPI_H
