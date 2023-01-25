@@ -14,7 +14,7 @@ libusbasp.a: src/usbasp_spi.o
 	ar rcs libusbasp.a $^
 
 usbasp_send: libusbasp.a examples/send_usbasp.o
-	$(CC) $(CFLAGS) $(INCLUDES) -o usbasp_send $^ $(LFLAGS) $(LIBS) -lusbasp
+	$(CC) $(CFLAGS) $(INCLUDES) -o usbasp_send $^ -lusbasp $(LFLAGS) $(LIBS)
 
 usb_list: examples/list.o
 	$(CC) $(CFLAGS) $(INCLUDES) -o list $^ $(LFLAGS) $(LIBS) 
