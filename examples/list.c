@@ -76,6 +76,8 @@ const char* dev_class_to_str(enum libusb_class_code c)
 	
 		/** Class is vendor-specific */
 		case LIBUSB_CLASS_VENDOR_SPEC: return "Vendor-specific";
+
+		case LIBUSB_CLASS_MISCELLANEOUS: return "Miscellaneous";
 	}	
 
 	return "<Unknown>";
@@ -145,7 +147,7 @@ int list_interfaces(struct libusb_config_descriptor *conf_desc)
 
 	for (i = 0; i < conf_desc->bNumInterfaces; ++i)
 	{
-		printf("    Interface %d\n", i);
+		printf("    Interface %ld\n", i);
 		printf("      Altsettings %d\n", conf_desc->interface[i].num_altsetting);
 		list_altsettings(&conf_desc->interface[i]);
 	}
@@ -199,7 +201,7 @@ int list_devices(struct libusb_context *ctx)
 		if (res < 0) {
 			fprintf(stderr, "Error: failed to get device descriptor\n");
 		} else {
-			printf("Device %d\n", i);
+			printf("Device %ld\n", i);
 			printf("  ID %04x:%04x\n", desc.idVendor, desc.idProduct);
 			printf("  Class 0x%02x (%s)\n",
 					desc.bDeviceClass,
